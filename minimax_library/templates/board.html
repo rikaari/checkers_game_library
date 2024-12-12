@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Board Display</title>
+    <style>
+        .board { font-family: "Courier New", Courier, monospace; }
+        .row { display: flex; }
+        .cell { width: 20px; height: 20px; display: inline-block; text-align: center; }
+        .empty { background-color: #f0f0f0; }
+        .player1 { color: blue; }
+        .player2 { color: red; }
+        .highlight { background-color: yellow; }
+    </style>
+</head>
+<body>
+    <h1>Current Board</h1>
+    <div class="board">
+        {% for row in board %}
+        <div class="row">
+            {% for cell in row %}
+            <div class="cell {% if cell == '   ' %}empty{% elif cell == 'o' %}player1{% elif cell == 'x' %}player2{% endif %}">{{ cell }}</div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+    <h2>Predicted Move</h2>
+    <p>From: {{ best_move['from'] }} to {{ best_move['to'] }}</p>  <!-- Dynamic content here -->
+</body>
+</html>
