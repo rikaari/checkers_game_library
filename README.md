@@ -72,4 +72,21 @@ You can find a complete list of dependencies in `requirements.txt`.
 Begin by cloning the repository to your local machine using Git:
 ```bash
 git clone https://github.com/rikaari/checkers_game_library/
-cd <repository-directory>
+cd checkers_game_library
+
+### Step 2: Set Up a Virtual Environment
+Create a virtual environment to ensure isolated and conflict-free package management:
+```bash
+python -m venv venv
+
+Activate the virtual environment:
+On Windows , use:
+```bash
+venv\Scripts\activate
+
+On macOS  and Linux , use:
+```bash
+source venv/bin/activate
+
+
+
