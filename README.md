@@ -73,6 +73,7 @@ Begin by cloning the repository to your local machine using Git:
 ```bash
 git clone https://github.com/rikaari/checkers_game_library/
 cd checkers_game_library
+cd minimax_library
 ```
 
 ### Step 2: Set Up a Virtual Environment
@@ -87,9 +88,97 @@ On Windows , use:
 venv\Scripts\activate
 ```
 
-On macOS  and Linux , use:
+### Step 3: Install Dependencies
+Once the virtual environment is activated, install the required Python packages listed in **requirements.txt**:
 ```bash
-source venv/bin/activate
+pip install -r requirements.txt
 ```
 
+### Step 4: Run the Application
+Start the Flask application by executing:
+```bash
+python api/app.py
+```
+### Important Configuration Note
+> **Warning:** Before proceeding with running or testing the application, ensure that the file paths in your scripts are correct. This is essential to avoid runtime errors.
+> 
 
+###  Step 5: Test the Flask Application 
+To verify that your application is running correctly, use the **test_api.py script.** This script should be executed in a new terminal window  while the Flask app is running in the previous one. 
+Open a new terminal window.
+Navigate to the project directory (if not already there).
+Run the test script to execute predefined API tests:
+```bash
+python test_api.py
+```
+
+###  Step 6: Configure Docker for Deployment
+After verifying that your Flask application is working correctly with the test script test_api.py, you can proceed to set up Docker for your application. The **Dockerfile** allows you to package your application and all of its dependencies into a container, ensuring consistency across different environments.
+Here’s a basic example:
+```dockerfile
+# Use an official Python runtime as a parent image
+FROM python:3.9-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the current directory contents into the container at /app
+COPY . .
+```
+###  Step 6.2: Build the Docker Image
+Run the following command in your terminal to build the Docker image:
+```bash
+docker build -t minimax .
+```
+This command will package your application into an image tagged with minimax.
+
+###  Step 6.3: Run the Docker Container
+Start the Docker container using the following command:
+> **Warning:** Before starting the Docker container, ensure that your local Flask application is not running. This is crucial to avoid port conflicts, as both processes use the same port (5000).
+```bash
+podman run -p 5000:5000 -v /home/rika/Desktop:/host_files minimax
+```
+This command maps port 5000 of the container to port 5000 on your host machine, allowing external access.
+
+###  Step 6.4: Verify Container Deployment
+To ensure the Docker container is working properly, open a web browser to access your application:
+Visit
+```bash
+http://127.0.0.1:5000/
+```
+Run a test similar to **test_api.py** against the Dockerized application to confirm all API endpoints are functioning as expected.
+```bash
+python test_api.py
+```
+
+Here's an example of what the script might print if everything is working as expected:
+```bash
+Status Code: 200
+Response JSON: {
+  "best_move": {
+    "from": "A2",
+    "to": "B3"
+  },
+  "board": [
+    ["   ", "   ", "   ", "   ", "   ", "   ", "   ", "   "],
+    ["   ", " o ", "   ", "   ", "   ", "   ", "   ", "   "],
+    ["   ", "   ", "   ", "   ", "   ", "   ", "   ", "   "],
+    ["   ", "   ", "   ", "   ", "   ", "   ", "   ", "   "],
+    ["   ", "   ", "   ", "   ", "   ", "   ", "   ", "   "],
+    ["   ", "   ", "   ", "   ", "   ", "   ", "   ", "   "],
+    ["   ", "   ", "   ", "   ", "   ", "   ", "   ", "   "],
+    ["   ", "   ", "   ", "   ", "   ", "   ", "   ", "   "]
+  ]
+}
+```
+###  Check Logs and Outputs
+```bash
+docker logs <container_id>
+```
+Replace <container_id> with the actual container ID, which can be found using docker ps.
+
+###  Stop the Docker Container (Optional)
+Once you've tested the application, you may stop the container by running:
+```bash
+docker stop <container_name_or_id>
+```
