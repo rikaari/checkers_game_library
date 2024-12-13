@@ -1,5 +1,6 @@
 # Project Name: Board Game AI
-**Author: Ntwari Regan 2021/BSE/134/PS**
+### Author:
+**Ntwari Regan 2021/BSE/134/PS**
 
 ## Overview
 The "Board Game AI" project is a simulation of a strategic two-player board game with an integrated AI opponent. This AI, which employs the Minimax algorithm with alpha-beta pruning, deftly analyzes potential moves to optimize gameplay success. The entire application is hosted via a Flask-based API, allowing for robust interaction and versatile deployment options, including Docker.
