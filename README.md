@@ -1,4 +1,5 @@
 # Project Name: Board Game AI
+**Author: Ntwari Regan 2021/BSE/134/PS**
 
 ## Overview
 The "Board Game AI" project is a simulation of a strategic two-player board game with an integrated AI opponent. This AI, which employs the Minimax algorithm with alpha-beta pruning, deftly analyzes potential moves to optimize gameplay success. The entire application is hosted via a Flask-based API, allowing for robust interaction and versatile deployment options, including Docker.
@@ -73,7 +74,6 @@ Begin by cloning the repository to your local machine using Git:
 ```bash
 git clone https://github.com/rikaari/checkers_game_library/
 cd checkers_game_library
-cd minimax_library
 ```
 
 ### Step 2: Set Up a Virtual Environment
@@ -97,16 +97,22 @@ pip install -r requirements.txt
 ### Step 4: Run the Application
 Start the Flask application by executing:
 ```bash
+cd minimax_library
+cd api
 python api/app.py
 ```
 ### Important Configuration Note
 > **Warning:** Before proceeding with running or testing the application, ensure that the file paths in your scripts are correct. This is essential to avoid runtime errors.
-> 
+> When you are testing the Flask application directly on your machine (without Docker or Podman), ensure your file paths reflect the actual location on your local filesystem. Coonfigure this variable in your **test_api.py** file:
+
+```python
+data = {"filename": "/home/rika/Desktop/board1.txt"}
+```
 
 ###  Step 5: Test the Flask Application 
 To verify that your application is running correctly, use the **test_api.py script.** This script should be executed in a new terminal window  while the Flask app is running in the previous one. 
 Open a new terminal window.
-Navigate to the project directory (if not already there).
+Navigate to the project directory, **/checkers_game_library/minimax_library/api** (if not already there).
 Run the test script to execute predefined API tests:
 ```bash
 python test_api.py
@@ -131,6 +137,12 @@ Run the following command in your terminal to build the Docker image:
 docker build -t minimax .
 ```
 This command will package your application into an image tagged with minimax.
+> **Warning:** Before proceeding with running or testing the docker, ensure that the file paths in your scripts are correct. This is essential to avoid runtime errors.
+> When you are testing with Docker or Podman, ensure your file paths reflect the actual location on your local filesystem. Coonfigure this variable in your **test_api.py** file:
+
+```python
+data = {"filename": "/host_files/board1.txt"}
+```
 
 ###  Step 6.3: Run the Docker Container
 Start the Docker container using the following command:
